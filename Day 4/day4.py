@@ -79,5 +79,5 @@ def part2(draws, boards):
             return score_board(draws[:n+1], boards[0])*draws[n]
 
 #Running
-print("Part 1:", part1(draws, boards))
-print("Part 2:", part2(draws, boards))
+print("Part 1:", part1(draws, boards)) # 11536
+print("Part 2:", part2(draws, boards)) # 1284

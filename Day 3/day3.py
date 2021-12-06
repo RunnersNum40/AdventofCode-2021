@@ -48,5 +48,5 @@ def part2(data):
 
 
 #Running
-print("Part 1:", part1(data))
-print("Part 2:", part2(data))
+print("Part 1:", part1(data)) # 4001724
+print("Part 2:", part2(data)) # 587895

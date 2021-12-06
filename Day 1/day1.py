@@ -15,5 +15,5 @@ def part2(data):
     return part1(np.convolve(data, [1, 1, 1], "valid"))
 
 #Running
-print("Part 1:", part1(data))
-print("Part 2:", part2(data))
+print("Part 1:", part1(data)) # 1791
+print("Part 2:", part2(data)) # 1822

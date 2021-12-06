@@ -50,5 +50,5 @@ def part2(data):
     return np.count_nonzero(grid >= 2)
 
 #Running
-print("Part 1:", part1(data))
-print("Part 2:", part2(data))
+print("Part 1:", part1(data)) # 8350
+print("Part 2:", part2(data)) # 19374

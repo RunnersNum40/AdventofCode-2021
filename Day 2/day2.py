@@ -32,5 +32,5 @@ def part2(data):
     return pos[0]*pos[1]
 
 #Running
-print("Part 1:", part1(data))
-print("Part 2:", part2(data))
+print("Part 1:", part1(data)) # 1936494
+print("Part 2:", part2(data)) # 1997106066
