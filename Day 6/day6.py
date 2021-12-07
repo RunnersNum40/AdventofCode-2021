@@ -7,7 +7,7 @@ with open(file_name, "r") as file:
 def fishes(n, days, seen={}, calls=[0]):
     """ Take a fish's days until creating a new fish and the number of days left.
         Return the number of fish after that many days."""
-    
+
     # Check if the problem has already been solved
     if (n, days) in seen.keys():
         pass
