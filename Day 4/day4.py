@@ -66,11 +66,9 @@ def part2(draws, boards):
         # Remove any boards that win
         for i in remove[::-1]:
             boards = np.delete(boards, i, 0)
-
         # Stop when there is one board left
         if boards.shape[0] == 1:
             break
-
     # Loop until the last board wins
     for n in range(len(draws)):
         # Log any boards that win

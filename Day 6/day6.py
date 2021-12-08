@@ -2,44 +2,31 @@ import numpy as np
 
 file_name = "input.txt"
 with open(file_name, "r") as file:
-    data = np.array([list(map(int, line.split(","))) for line in file][0])
+    # Read the first line into an np array of ints
+    data = np.array(list(map(int, file.readline().split(","))))
 
-def fishes(n, days, seen={}, calls=[0]):
-    """ Take a fish's days until creating a new fish and the number of days left.
-        Return the number of fish after that many days."""
+# This is a transformation matrix that takes day(n) to day(n+1)
+# boost*[x0, x1, x2, x3, x4, x5, x6, x7, x8] -> [x1, x2, x3, x4, x5, x6, x7+x0, x8, x0]
+boost = np.array([[0, 1, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 1, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 1, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 1, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 1, 0, 0],
+                  [1, 0, 0, 0, 0, 0, 0, 1, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 0, 1],
+                  [1, 0, 0, 0, 0, 0, 0, 0, 0]])
 
-    # Check if the problem has already been solved
-    if (n, days) in seen.keys():
-        pass
-    # If there are not enough days left for a new fish
-    elif n >= days or days == 0:
-        # Only the current fish exists
-        seen[(n, days)] = 1
-    # If there are exactly enough days to get one new fish
-    elif n == days+1:
-        # Two fish exist at the end
-        seen[(n, days)] = 2
-    # If there are enough days to spawn new fish with time left over
-    else:
-        # The current fish continues and it's spawn
-        seen[(n, days)] = fishes(7, days-n)+fishes(9, days-n)
-    # Return the number of resulting fish
-    return seen[(n, days)]
-
-# Part 1
-def part1(data):
-    s = 0
-    for n in data:
-        s += fishes(n, 80)
-    return s
-
-# Part 2
-def part2(data):
-    s = 0
-    for n in data:
-        s += fishes(n, 256)
-    return s
+def fishes(data, day=80):
+    # Convert the fishes into a list of number of timers fore each value
+    data = np.array([np.count_nonzero(data==n) for n in range(9)])
+    # Take the power of the boost matrix to preform many days of changes at once
+    transform = np.linalg.matrix_power(boost, day)
+    # Boost the intital conditions
+    data = np.matmul(transform, data, dtype=np.int64)
+    # Return the number of fish
+    return np.sum(data)
 
 #Running
-print("Part 1:", part1(data)) # 371379
-print("Part 2:", part2(data)) # 1674303997472
+print("Part 1:", fishes(data, 80)) # 371379
+print("Part 2:", fishes(data, 256)) # 1674303997472
